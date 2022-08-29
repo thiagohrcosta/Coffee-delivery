@@ -39,26 +39,50 @@ export const CoffeeCardContainer = styled.div`
     font-weight: 800;
     font-size: 1.5rem;
   }
+
+  .coffee-checkout {
+    display: flex;
+    justify-content: space-between;
+
+    .coffee-amount {
+      display: flex;
+      align-items: center;
+
+      background: ${(props) => props.theme['gray-300']};
+
+
+      span {
+        color: ${(props) => props.theme['purple-500']};
+        cursor: pointer;
+      }
+
+      input {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 40px;
+        background: ${(props) => props.theme['gray-300']};
+        border: none;
+      }
+    }
+
+    .cart-container {
+      background: ${(props) => props.theme['purple-900']};
+      height: 38px;
+      width: 38px;
+      border-radius: 6px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
   .tags {
     display: flex;
     justify-content: space-evenly;
   }
 
-  .coffee-amount {
-    span {
-      color: ${(props) => props.theme['purple-500']};
-      cursor: pointer;
-    }
-  }
 
-  .cart-container {
-    background: ${(props) => props.theme['purple-900']};
-    height: 38px;
-    width: 38px;
-    border-radius: 6px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 `
