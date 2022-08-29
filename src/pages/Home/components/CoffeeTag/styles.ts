@@ -17,6 +17,6 @@ export const CoffeeTagContainer = styled.div`
   margin: 0 5px;
 
   p {
-    color: ${(props) => props.theme['yellow-900']};
+    color: ${(props) => props.theme['yellow-900']} !important;
   }
 `

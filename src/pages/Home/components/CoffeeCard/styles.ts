@@ -10,7 +10,7 @@ export const CoffeeCardContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
-  margin-top: 36px;
+  margin: 36px 0;
 
   h2 {
     font-size: 1.25rem !important;
@@ -33,8 +33,32 @@ export const CoffeeCardContainer = styled.div`
     margin-bottom: 20px;
   }
 
+  span {
+    color: ${(props) => props.theme['gray-600']};
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 1.5rem;
+  }
   .tags {
     display: flex;
     justify-content: space-evenly;
+  }
+
+  .coffee-amount {
+    span {
+      color: ${(props) => props.theme['purple-500']};
+      cursor: pointer;
+    }
+  }
+
+  .cart-container {
+    background: ${(props) => props.theme['purple-900']};
+    height: 38px;
+    width: 38px;
+    border-radius: 6px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `
