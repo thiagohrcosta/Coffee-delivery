@@ -7,4 +7,9 @@ export const CoffeeListContainer = styled.div`
     font-family: 'Baloo 2', cursive;
     font-size: 2rem;
   }
+
+  .coffee-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 `;
