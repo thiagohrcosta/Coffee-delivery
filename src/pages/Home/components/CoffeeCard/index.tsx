@@ -33,7 +33,7 @@ export default function CoffeCard({title, description, price, tags, image}: any)
       </div>
       <h2>{title}</h2>
       <p>{description}</p>
-      <div>
+      <div className="coffee-checkout">
         <p>R$ <span>{price}</span></p>
         <div className="coffee-amount">
           <span onClick={() => handleRemoveCoffee()}>-</span>
