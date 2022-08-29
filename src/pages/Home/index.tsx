@@ -1,5 +1,6 @@
 import Navbar from "../../components/Navbar";
 import Banner from "./components/Banner";
+import CoffeList from "./components/CoffeeList";
 import { HomeContainer } from "./styles";
 
 export default function Home(){
@@ -7,6 +8,7 @@ export default function Home(){
     <HomeContainer>
       <Navbar />
       <Banner />
+      <CoffeList />
     </HomeContainer>
   )
 }
