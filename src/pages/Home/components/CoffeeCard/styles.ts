@@ -43,10 +43,18 @@ export const CoffeeCardContainer = styled.div`
   .coffee-checkout {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    p {
+      margin-right: 20px;
+    }
 
     .coffee-amount {
       display: flex;
       align-items: center;
+
+      height: 39px;
+      margin-right: 10px;
 
       background: ${(props) => props.theme['gray-300']};
 
@@ -54,12 +62,14 @@ export const CoffeeCardContainer = styled.div`
       span {
         color: ${(props) => props.theme['purple-500']};
         cursor: pointer;
+        padding: 5px;
       }
 
       input {
         display: flex;
         align-items: center;
         justify-content: center;
+        text-align: center;
 
         width: 40px;
         background: ${(props) => props.theme['gray-300']};
