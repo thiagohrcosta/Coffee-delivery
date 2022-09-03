@@ -32,6 +32,7 @@ export const CartContainer = styled.div`
   height: 38px;
   width: 38px;
   border-radius: 6px;
+  padding: 0 4px;
 
   display: flex;
   justify-content: center;
