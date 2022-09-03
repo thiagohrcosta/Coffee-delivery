@@ -61,7 +61,7 @@ export const CheckoutInputs = styled.div`
   }
 
   button {
-    width: 200px;
+    width: 38.5%;
     background: ${props => props.theme["purple-500"]};
     color: ${props => props.theme["gray-100"]};
 
@@ -69,6 +69,10 @@ export const CheckoutInputs = styled.div`
 
     border: none;
     border-radius: 8px;
+  }
+
+  .address-cep {
+    width: 60%;
   }
 
   .input-completed {

@@ -60,9 +60,8 @@ export default function Checkout() {
                   </div>
                   <CheckoutInputs>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                      <input type="text" defaultValue={cep} placeholder="Busque pelo CEP" {...register("example")} onChange={(e) => selectedCep(e.target.value) } />
+                      <input className="address-cep" type="text" defaultValue={cep} placeholder="Busque pelo CEP" {...register("example")} onChange={(e) => selectedCep(e.target.value) } />
                       <button onClick={(e) => searchCEP(e)}>Buscar</button>
-
                       {addressCompleted && (
                         <div className="input-completed">
                           <div className="input-logradouro">
