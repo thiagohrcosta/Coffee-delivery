@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const CheckoutContainer = styled.div`
-  margin: 50px auto;
+  margin: 50px auto 0;
   max-width: 1280px;
 
   .checkout-container {
@@ -98,5 +98,87 @@ export const CheckoutInputs = styled.div`
         margin-left: 10px;
       }
     }
+  }
+`;
+
+export const SelectedCoffeeContainer = styled.div`
+  width: 35%;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  img {
+    width: 64px;
+    height: 64px;
+  }
+
+  .selected-coffee-container {
+    background: ${props => props.theme["gray-100"]};
+    padding: 2rem;
+    border-radius: 6px;
+
+    .coffee-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+
+      .coffee-item-counter {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+
+        .remove-coffee {
+          background: ${props => props.theme["gray-300"]};
+          color: ${props => props.theme["gray-600"]};
+          font-size: 0.825rem;
+          padding: 5px;
+
+          border-radius: 4px;
+
+          display: flex;
+          align-items: center;
+
+          span {
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+
+    .coffee-price {
+      font-weight: bold;
+    }
+
+    .total-order {
+      display: flex;
+      flex-direction: column;
+
+      color: ${props => props.theme["gray-600"]};
+
+      .total-order-item {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+
+        p:last-child {
+          font-weight: bold;
+        }
+      }
+
+      button {
+        background: ${props => props.theme["yellow-500"]};
+        color: ${props => props.theme["gray-100"]};
+
+        border-radius: 6px;
+        border: none;
+
+        margin: 10px 0;
+        height: 46px;
+        width: 100%;
+      }
+    }
+
   }
 `;

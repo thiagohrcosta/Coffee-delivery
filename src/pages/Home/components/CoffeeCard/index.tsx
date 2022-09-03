@@ -1,11 +1,11 @@
 import { ShoppingCart } from "phosphor-react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../../../contexts/CartContext";
 import CoffeTag from "../CoffeeTag";
 import { CoffeeCardContainer } from "./styles";
 
 export default function CoffeCard({title, description, price, tags, image}: any) {
-  const { addToCart } = useContext(CartContext);
+  const { cart, addToCart } = useContext(CartContext);
 
   const [coffeeCounter, setCoffeeCounter] = useState(1);
 
@@ -18,6 +18,10 @@ export default function CoffeCard({title, description, price, tags, image}: any)
       setCoffeeCounter(coffeeCounter - 1);
     }
   }
+
+  useEffect(() => {
+    console.log(cart)
+  })
 
   return (
     <CoffeeCardContainer>
@@ -44,7 +48,7 @@ export default function CoffeCard({title, description, price, tags, image}: any)
           <span onClick={() => handleAddCoffee()}>+</span>
         </div>
         <div className="cart-container">
-          <ShoppingCart size={32} color="#FFFFFF" weight="fill" onClick={() => {addToCart(title, description, price, tags, image)}} />
+          <ShoppingCart size={32} color="#FFFFFF" weight="fill" onClick={() => {addToCart([title, description, price, tags, image, coffeeCounter])}} />
         </div>
       </div>
 

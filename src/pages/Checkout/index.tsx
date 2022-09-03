@@ -1,14 +1,17 @@
 import Navbar from "../../components/Navbar";
-import { CheckoutContainer, CheckoutInputs } from "./styles";
+import { CheckoutContainer, CheckoutInputs, SelectedCoffeeContainer } from "./styles";
 
 import { useForm } from "react-hook-form";
-import { MapPinLine } from "phosphor-react";
-import { useState } from "react";
+import { MapPinLine, Trash } from "phosphor-react";
+import { useContext, useState } from "react";
 import Payment from "./components/Payment";
 import PaymentContextProvider from "../../contexts/PaymentContext";
+import { CartContext } from "../../contexts/CartContext";
 
 
 export default function Checkout() {
+  const { cart } = useContext(CartContext);
+
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const onSubmit = data => console.log(data);
 
@@ -22,6 +25,12 @@ export default function Checkout() {
 
   const [addressCompleted, setAddressCompleted] = useState(false);
   const [isLoading, setIsloading] = useState(false);
+
+  const [totalOrder, setTotalOrder] = useState([]);
+
+  const [productSelected, setProductSelected] = useState([
+
+  ]);
 
   function searchCEP(e: any) {
     e.preventDefault();
@@ -39,6 +48,24 @@ export default function Checkout() {
         setAddressCompleted(true);
       }
       setIsloading(false);
+  }
+
+  function handleDisplayTotalPrice(value: any) {
+    const itemValue = parseFloat(value[2]);
+    const itemAmount = parseFloat(value[5]);
+    const totalPrice = parseFloat(itemValue * itemAmount).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+    return (
+      <>
+        {totalPrice}
+      </>
+    )
+  }
+
+  function handleTotalOrder() {
+    const total = cart.reduce((acc, item) => {
+      return acc + item[2] * item[5];
+    }, 0);
+    setTotalOrder(total);
   }
 
   return (
@@ -80,9 +107,49 @@ export default function Checkout() {
                   </CheckoutInputs>
                 </div>
               </div>
-              <div>
+              <SelectedCoffeeContainer>
                 <h2>Cafés selecionados</h2>
-              </div>
+                <div className="selected-coffee-container" >
+                  {cart.map((coffee:any) => {
+                    console.log(cart)
+                    return(
+                      <div className="coffee-item">
+                        <div>
+                          <img src={coffee[4]} alt="Café" />
+                        </div>
+                        <div>
+                        <p>{coffee[0]}</p>
+                        <div className="coffee-item-counter">
+                          <p>{coffee[5]}</p>
+                          <div className="remove-coffee">
+                            <Trash size={16} color="#8047F8" />
+                            <span>REMOVER</span>
+                          </div>
+                        </div>
+                        </div>
+                        <div>
+                          <p className="coffee-price">{handleDisplayTotalPrice(coffee)}</p>
+                        </div>
+                      </div>
+                    )
+                  })}
+                  <div className="total-order">
+                    <div className="total-order-item">
+                      <p>Total de itens</p>
+                      <p>R$ 45,90</p>
+                    </div>
+                    <div className="total-order-item">
+                      <p>Entrega</p>
+                      <p>R$ 3,50</p>
+                    </div>
+                    <div className="total-order-item">
+                      <h3>Total</h3>
+                      <h3>R$ 3,50</h3>
+                    </div>
+                    <button>CONFIRMAR PEDIDO</button>
+                  </div>
+                </div>
+              </SelectedCoffeeContainer>
             </div>
           </form>
         </CheckoutContainer>
