@@ -8,6 +8,7 @@ import CoffeeCold from "../../../../assets/images/coffee_cold.svg";
 
 const coffeeList = [
   {
+    id: 1,
     image: CoffeeExpress,
     name: "Expresso Traidicional",
     description: "O tradicional café feito com água quente e grãos moídos",
@@ -15,6 +16,7 @@ const coffeeList = [
     tags: ["TRADICIONAL"]
   },
   {
+    id: 2,
     image: CoffeeAmerican,
     name: "Expresso Americano",
     description: "Expresso diluído, menos intenso que o tradicional",
@@ -22,6 +24,7 @@ const coffeeList = [
     tags: ["TRADICIONAL"]
   },
   {
+    id: 3,
     image: CoffeeCreamy,
     name: "Expresso Cremoso",
     description: "Café expresso tradicional com espuma cremosa",
@@ -29,6 +32,7 @@ const coffeeList = [
     tags: ["TRADICIONAL"]
   },
   {
+    id: 4,
     image: CoffeeCold,
     name: "Expresso Gelado",
     description: "Bebida preparada com café expresso e cubos de gelo",
@@ -45,6 +49,7 @@ export default function CoffeList() {
           coffeeList.map((coffee) => {
             return (
               <CoffeCard
+                key={coffee.id}
                 image={coffee.image}
                 title={coffee.name}
                 description={coffee.description}
