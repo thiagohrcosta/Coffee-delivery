@@ -18,7 +18,9 @@ export default function Navbar() {
   return (
     <NavbarContainer>
       <div className="logo">
-        <img src={Logo} alt="logo" />
+        <Link to="/">
+          <img src={Logo} alt="logo" />
+        </Link>
       </div>
       <div>
         <NavbarLocation>

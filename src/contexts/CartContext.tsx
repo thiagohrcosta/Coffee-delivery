@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext, useState } from "react";
 
 interface CartContextType {
   id: number;
-  name: string;
+  title: string;
   tags: string[];
   price: number;
   image: string;
