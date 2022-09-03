@@ -32,9 +32,25 @@ export const CartContainer = styled.div`
   height: 38px;
   width: 38px;
   border-radius: 6px;
-  padding: 0 4px;
+  padding: 0 2px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 `;
+
+export const CheckoutNumber = styled.span`
+  background-color: ${props => props.theme["yellow-900"]};
+  color: ${props => props.theme["gray-100"]};
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: -10px;
+  margin-left: -10px;
+
+`

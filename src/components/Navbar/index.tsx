@@ -1,9 +1,16 @@
-import { CartContainer, CityContainer, NavbarContainer, NavbarLocation } from "./styles";
+import {
+  CartContainer,
+  CityContainer,
+  NavbarContainer,
+  NavbarLocation,
+  CheckoutNumber
+} from "./styles";
 
 import Logo from "../../assets/images/logo.svg";
 import { MapPin, ShoppingCart } from "phosphor-react";
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const { cart } = useContext(CartContext);
@@ -24,8 +31,13 @@ export default function Navbar() {
             <p>Belo Horizonte, MG</p>
           </CityContainer>
           <CartContainer>
-            <ShoppingCart size={32} color="#c47f17" /> <span>{cart.length}</span>
+            <Link to="/checkout">
+              <ShoppingCart size={32} color="#c47f17" />
+            </Link>
           </CartContainer>
+          <CheckoutNumber>
+            <span>{cart.length}</span>
+          </CheckoutNumber>
         </NavbarLocation>
 
       </div>
