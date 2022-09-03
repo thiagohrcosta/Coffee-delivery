@@ -30,8 +30,6 @@ interface CartContextProviderProps {
 
 export default function CartContextProvider({ children }: CartContextProviderProps ) {
   const [cart, setCart] = useState<CartContextType[]>([
-    {id: 1, name: "Café do Dia", tags: ["Café do Dia"], price: 10, image: "https://i.imgur.com/8Q5QY9r.png", coffeeCounter: 1},
-    {id: 2, name: "Café do Dia", tags: ["Café do Dia"], price: 10, image: "https://i.imgur.com/8Q5QY9r.png", coffeeCounter: 1},
   ]);
 
   const addToCart = (item: CartContextType) => {
