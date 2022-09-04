@@ -19,10 +19,6 @@ export default function CoffeCard({title, description, price, tags, image}: any)
     }
   }
 
-  useEffect(() => {
-    console.log(cart)
-  })
-
   return (
     <CoffeeCardContainer>
       <img src={image} alt="Coffe Express" />

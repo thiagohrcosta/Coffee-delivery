@@ -3,7 +3,7 @@ import { CheckoutContainer, CheckoutInputs, SelectedCoffeeContainer } from "./st
 
 import { useForm } from "react-hook-form";
 import { MapPinLine, Trash } from "phosphor-react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Payment from "./components/Payment";
 import PaymentContextProvider from "../../contexts/PaymentContext";
 import { CartContext } from "../../contexts/CartContext";
@@ -26,7 +26,8 @@ export default function Checkout() {
   const [addressCompleted, setAddressCompleted] = useState(false);
   const [isLoading, setIsloading] = useState(false);
 
-  const [totalOrder, setTotalOrder] = useState([]);
+  const [totalOrder, setTotalOrder] = useState(0);
+  const [orderPlusDelivery, setOrderPlusDelivery] = useState(0);
 
   const [productSelected, setProductSelected] = useState([
 
@@ -51,7 +52,7 @@ export default function Checkout() {
   }
 
   function handleDisplayTotalPrice(value: any) {
-    const itemValue = parseFloat(value[2]);
+    const itemValue = parseFloat(value[2].replace(',', '.'));
     const itemAmount = parseFloat(value[5]);
     const totalPrice = parseFloat(itemValue * itemAmount).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
     return (
@@ -62,11 +63,23 @@ export default function Checkout() {
   }
 
   function handleTotalOrder() {
+    console.log(cart)
     const total = cart.reduce((acc, item) => {
-      return acc + item[2] * item[5];
+      return parseFloat(acc) + parseFloat(item[2].replace(',', '.')) * parseFloat(item[5]);
     }, 0);
     setTotalOrder(total);
   }
+
+  function handleToltalOrderPlusDelivery() {
+    const delivery = 3.50;
+    const total = totalOrder + delivery;
+    setOrderPlusDelivery(total);
+  }
+
+  useEffect(() => {
+    handleTotalOrder()
+    handleToltalOrderPlusDelivery()
+  }, [])
 
   return (
     <>
@@ -106,12 +119,14 @@ export default function Checkout() {
                     </form>
                   </CheckoutInputs>
                 </div>
+                <Payment />
+
               </div>
+
               <SelectedCoffeeContainer>
                 <h2>Cafés selecionados</h2>
                 <div className="selected-coffee-container" >
                   {cart.map((coffee:any) => {
-                    console.log(cart)
                     return(
                       <div className="coffee-item">
                         <div>
@@ -136,7 +151,7 @@ export default function Checkout() {
                   <div className="total-order">
                     <div className="total-order-item">
                       <p>Total de itens</p>
-                      <p>R$ 45,90</p>
+                      <p>{totalOrder.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
                     </div>
                     <div className="total-order-item">
                       <p>Entrega</p>
@@ -144,7 +159,7 @@ export default function Checkout() {
                     </div>
                     <div className="total-order-item">
                       <h3>Total</h3>
-                      <h3>R$ 3,50</h3>
+                      <h3>{orderPlusDelivery.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h3>
                     </div>
                     <button>CONFIRMAR PEDIDO</button>
                   </div>
@@ -153,7 +168,6 @@ export default function Checkout() {
             </div>
           </form>
         </CheckoutContainer>
-        <Payment />
       </PaymentContextProvider>
     </>
   )
