@@ -177,6 +177,8 @@ export const SelectedCoffeeContainer = styled.div`
         margin: 10px 0;
         height: 46px;
         width: 100%;
+
+        cursor: pointer;
       }
     }
 
