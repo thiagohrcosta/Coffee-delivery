@@ -5,12 +5,13 @@ import { useForm } from "react-hook-form";
 import { MapPinLine, Trash } from "phosphor-react";
 import { useContext, useEffect, useState } from "react";
 import Payment from "./components/Payment";
-import PaymentContextProvider from "../../contexts/PaymentContext";
+import PaymentContextProvider, { PaymentContext } from "../../contexts/PaymentContext";
 import { CartContext } from "../../contexts/CartContext";
 
 
 export default function Checkout() {
   const { cart } = useContext(CartContext);
+  const { paymentSelected } = useContext(PaymentContext);
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const onSubmit = data => console.log(data);
@@ -29,9 +30,7 @@ export default function Checkout() {
   const [totalOrder, setTotalOrder] = useState(0);
   const [orderPlusDelivery, setOrderPlusDelivery] = useState(0);
 
-  const [productSelected, setProductSelected] = useState([
-
-  ]);
+  const [productSelected, setProductSelected] = useState([]);
 
   function searchCEP(e: any) {
     e.preventDefault();
@@ -63,7 +62,6 @@ export default function Checkout() {
   }
 
   function handleTotalOrder() {
-    console.log(cart)
     const total = cart.reduce((acc, item) => {
       return parseFloat(acc) + parseFloat(item[2].replace(',', '.')) * parseFloat(item[5]);
     }, 0);
@@ -74,6 +72,24 @@ export default function Checkout() {
     const delivery = 3.50;
     const total = totalOrder + delivery;
     setOrderPlusDelivery(total);
+  }
+
+  function handleCheckoutOrder(e) {
+    e.preventDefault();
+    const order = {
+      street,
+      addressComplement,
+      streetNumber,
+      neighborhood,
+      city,
+      state,
+      totalOrder,
+      orderPlusDelivery,
+      productSelected,
+      paymentSelected
+    }
+    const data = JSON.stringify(order);
+    localStorage.setItem('@coffee-delivery:order', data);
   }
 
   useEffect(() => {
@@ -108,7 +124,7 @@ export default function Checkout() {
                             <input type="text" defaultValue={street} placeholder="Rua" />
                             <input type="text" defaultValue={streetNumber} placeholder="Número" onChange={(e) => setStreetNumber(e.target.value)}/>
                           </div>
-                          <input type="text" defaultValue={addressComplement} placeholder="Complemento (Opcional)" />
+                          <input type="text" defaultValue={addressComplement} placeholder="Complemento (Opcional)" onChange={(e) => setAddressComplement(e.target.value)} />
                           <input type="text" defaultValue={neighborhood} placeholder="Bairro" />
                           <div className="input-cidade">
                             <input type="text" defaultValue={city} placeholder="Cidade" />
@@ -161,7 +177,7 @@ export default function Checkout() {
                       <h3>Total</h3>
                       <h3>{orderPlusDelivery.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h3>
                     </div>
-                    <button>CONFIRMAR PEDIDO</button>
+                    <button onClick={(e) => handleCheckoutOrder(e)}>CONFIRMAR PEDIDO</button>
                   </div>
                 </div>
               </SelectedCoffeeContainer>
