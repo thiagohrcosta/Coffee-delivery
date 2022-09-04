@@ -76,26 +76,34 @@ export default function Checkout() {
 
   function handleCheckoutOrder(e) {
     e.preventDefault();
-    const order = {
-      street,
-      addressComplement,
-      streetNumber,
-      neighborhood,
-      city,
-      state,
-      totalOrder,
-      orderPlusDelivery,
-      productSelected,
-      paymentSelected
+    if (street == "" || neighborhood == "" || city == "" || state == "") {
+      alert("Preencha todos os campos de endereço!");
+    } else if (paymentSelected == "" || paymentSelected == undefined) {
+      alert("Selecione uma forma de pagamento!");
+    } else {
+      const order = {
+        street,
+        addressComplement,
+        streetNumber,
+        neighborhood,
+        city,
+        state,
+        totalOrder,
+        orderPlusDelivery,
+        productSelected,
+        paymentSelected
+      }
+      const data = JSON.stringify(order);
+      localStorage.setItem('@coffee-delivery:order', data);
+
+      window.location.href = "/finished";
     }
-    const data = JSON.stringify(order);
-    localStorage.setItem('@coffee-delivery:order', data);
   }
 
   useEffect(() => {
     handleTotalOrder()
     handleToltalOrderPlusDelivery()
-  }, [])
+  }, [cart, cep])
 
   return (
     <>
