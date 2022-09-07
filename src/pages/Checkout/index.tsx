@@ -10,7 +10,7 @@ import { CartContext } from "../../contexts/CartContext";
 
 
 export default function Checkout() {
-  const { cart } = useContext(CartContext);
+  const { cart, addCoffeeQuantityByOne } = useContext(CartContext);
   const { paymentSelected } = useContext(PaymentContext);
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -31,6 +31,8 @@ export default function Checkout() {
   const [orderPlusDelivery, setOrderPlusDelivery] = useState(0);
 
   const [productSelected, setProductSelected] = useState([]);
+
+  const [finalPaymentSelection , setFinalPaymentSelection] = useState(paymentSelected);
 
   function searchCEP(e: any) {
     e.preventDefault();
@@ -74,28 +76,38 @@ export default function Checkout() {
     setOrderPlusDelivery(total);
   }
 
-  function handleCheckoutOrder(e) {
+  function handleCheckoutOrder(e: any) {
     e.preventDefault();
-    const order = {
-      street,
-      addressComplement,
-      streetNumber,
-      neighborhood,
-      city,
-      state,
-      totalOrder,
-      orderPlusDelivery,
-      productSelected,
-      paymentSelected
+    if (street == "" || neighborhood == "" || city == "" || state == "") {
+      alert("Preencha todos os campos de endereço!");
+    } else {
+      const order = {
+        street,
+        addressComplement,
+        streetNumber,
+        neighborhood,
+        city,
+        state,
+        totalOrder,
+        orderPlusDelivery,
+        productSelected,
+        finalPaymentSelection
+      }
+      const data = JSON.stringify(order);
+      localStorage.setItem('@coffee-delivery:order', data);
+
+      window.location.href = "/finished";
     }
-    const data = JSON.stringify(order);
-    localStorage.setItem('@coffee-delivery:order', data);
   }
 
   useEffect(() => {
     handleTotalOrder()
     handleToltalOrderPlusDelivery()
-  }, [])
+    setFinalPaymentSelection(paymentSelected)
+  }, [cart, cep, paymentSelected])
+
+  useEffect(() => {
+  },[cart[5]])
 
   return (
     <>
@@ -151,7 +163,11 @@ export default function Checkout() {
                         <div>
                         <p>{coffee[0]}</p>
                         <div className="coffee-item-counter">
-                          <p>{coffee[5]}</p>
+                          <div className="coffe-counter-container">
+                            <span>-</span>
+                            <p>{coffee[5]}</p>
+                            <span onClick={(e) => addCoffeeQuantityByOne(e)}>+</span>
+                          </div>
                           <div className="remove-coffee">
                             <Trash size={16} color="#8047F8" />
                             <span>REMOVER</span>
