@@ -1,0 +1,6 @@
+
+{
+  "coffees": [
+    { "id": 1, "name": "Expresso Tradicional", "price": "9,90", "tags": ["TRADICIONAL"] }
+  ]
+}
