@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 interface CartContextType {
   id: number;
@@ -44,9 +44,36 @@ export default function CartContextProvider({ children }: CartContextProviderPro
     setCart([]);
   };
 
+  const addCoffeeQuantityByOne = (item: CartContextType) => {
+    const newCart = cart.map((cartItem) => {
+      if (cartItem.id === item.id) {
+        return { ...cartItem, coffeeCounter: cartItem.coffeeCounter + 1 };
+      }
+      return cartItem;
+    });
+    setCart(newCart);
+  };
+
+  const removeCoffeeQuantityByOne = (item: CartContextType) => {
+    const newCart = cart.map((cartItem) => {
+      if (cartItem.id === item.id) {
+        return { ...cartItem, coffeeCounter: cartItem.coffeeCounter - 1 };
+      }
+      return cartItem;
+    });
+    setCart(newCart);
+  }
+
+  useEffect(() => {
+    const data = localStorage.getItem("cart");
+    if (data) {
+      setCart(JSON.parse(data));
+    }
+  }, [cart]);
+
   return (
     <CartContext.Provider
-     value={{ cart, addToCart, removeFromCart, clearCart }}
+     value={{ cart, addToCart, removeFromCart, addCoffeeQuantityByOne,  removeCoffeeQuantityByOne, clearCart }}
     >
       {children}
     </CartContext.Provider>

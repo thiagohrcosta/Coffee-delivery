@@ -144,6 +144,24 @@ export const SelectedCoffeeContainer = styled.div`
             margin-left: 5px;
           }
         }
+
+        .coffe-counter-container {
+          display: flex;
+          align-items: center;
+
+          background: ${props => props.theme["gray-300"]};
+          padding: 3.5px;
+          border-radius: 4px;
+
+          margin: 0 10px;
+
+          span {
+            color: ${props => props.theme["purple-500"]};
+            margin: 0 10px;
+            font-weight: 600;
+            cursor: pointer;
+          }
+        }
       }
     }
 

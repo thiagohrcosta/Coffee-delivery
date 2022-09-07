@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 export const PaymentContext =  createContext({});
 
@@ -8,6 +8,10 @@ interface PaymentContextProviderProps {
 
 export default function PaymentContextProvider({children}:PaymentContextProviderProps) {
   const [paymentSelected, setPaymentSelected] = useState();
+
+  useEffect(() => {
+    console.log(paymentSelected);
+  },[paymentSelected])
 
   return (
     <PaymentContext.Provider
