@@ -2,7 +2,6 @@ import Navbar from "../../components/Navbar";
 import { FinishedContainer } from "./styles";
 
 import DeliveryImage from "../../assets/images/delivery.svg";
-import DeliveryInfo from "./components/DeliveryInfo";
 import { useEffect, useState } from "react";
 import { CurrencyDollarSimple, MapPin, Timer } from "phosphor-react";
 
@@ -45,7 +44,7 @@ export default function Finished() {
               <CurrencyDollarSimple size={32} color="#ffffff" weight="fill" style={{background: "#c47f17", padding: "5px", borderRadius: "50%"}}  />
               <div className="delivery-message">
                 <p>Total (Forma de pagamento)</p>
-                <p><b>{storedInfo.orderPlusDelivery} (Dinheiro)</b></p>
+                <p><b>{parseFloat(storedInfo.orderPlusDelivery).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})} (Dinheiro)</b></p>
               </div>
             </div>
           </div>
