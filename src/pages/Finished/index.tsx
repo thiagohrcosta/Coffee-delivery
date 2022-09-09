@@ -5,8 +5,20 @@ import DeliveryImage from "../../assets/images/delivery.svg";
 import { useEffect, useState } from "react";
 import { CurrencyDollarSimple, MapPin, Timer } from "phosphor-react";
 
+interface StoredInfoPropos {
+  street: string;
+  streetNumber: string;
+  addressComplement: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  cep: string;
+  orderPlusDelivery: string;
+
+}
+
 export default function Finished() {
-  const [storedInfo, setStoredInfo] = useState([]);
+  const [storedInfo, setStoredInfo] = useState<StoredInfoPropos | any>([]);
 
   const storedStateAsJSON = localStorage.getItem("@coffee-delivery:order");
 
