@@ -12,22 +12,27 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import { Link } from "react-router-dom";
 
+interface CartItemProps {
+  name: string;
+  description: string;
+  price: string;
+  tags: string[];
+  logo: string;
+  amout: number;
+}
+
 export default function Navbar() {
-  const { cart } = useContext(CartContext);
+  const { cart } = useContext<CartItemProps | any>(CartContext);
   const [itemsInCart, setItemsInCart] = useState(0);
 
-  function add(acc, a) {
+  function add(acc: any, a: any) {
     return acc + a;
   }
 
   useEffect(() => {
-    let items = [];
-
-    cart.map((item: any) => {
-      items.push(item[5])
-    })
-
-    setItemsInCart(items.reduce(add, 0))
+    console.log(cart)
+    let amoutOfItems = cart.map((item: any) => item[5]);
+    setItemsInCart(amoutOfItems.reduce(add, 0));
   },[cart])
 
   return (
