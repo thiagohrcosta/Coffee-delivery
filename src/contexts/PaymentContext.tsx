@@ -10,7 +10,10 @@ export default function PaymentContextProvider({children}:PaymentContextProvider
   const [paymentSelected, setPaymentSelected] = useState();
 
   useEffect(() => {
-    console.log(paymentSelected);
+    const storedStateAsJSON = localStorage.getItem("@coffee-delivery:payment");
+    if (storedStateAsJSON) {
+      setPaymentSelected(JSON.parse(storedStateAsJSON));
+    }
   },[paymentSelected])
 
   return (

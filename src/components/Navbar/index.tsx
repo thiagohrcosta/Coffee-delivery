@@ -8,12 +8,27 @@ import {
 
 import Logo from "../../assets/images/logo.svg";
 import { MapPin, ShoppingCart } from "phosphor-react";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const { cart } = useContext(CartContext);
+  const [itemsInCart, setItemsInCart] = useState(0);
+
+  function add(acc, a) {
+    return acc + a;
+  }
+
+  useEffect(() => {
+    let items = [];
+
+    cart.map((item: any) => {
+      items.push(item[5])
+    })
+
+    setItemsInCart(items.reduce(add, 0))
+  },[cart])
 
   return (
     <NavbarContainer>
@@ -38,7 +53,7 @@ export default function Navbar() {
             </Link>
           </CartContainer>
           <CheckoutNumber>
-            <span>{cart.length}</span>
+            <span>{itemsInCart}</span>
           </CheckoutNumber>
         </NavbarLocation>
 
